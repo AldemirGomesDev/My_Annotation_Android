@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">My Annotations</string>
+    <string name="action_settings">Settings</string>
+    <string name="text_titulo">Título</string>
+    <string name="text_anotation">Anotações</string>
+    <string name="text_endereco">Endereço</string>
+    <string name="text_save">Salvar</string>
+    <string name="text_my_anotation">Adicionar Anotações</string>
+</resources>
