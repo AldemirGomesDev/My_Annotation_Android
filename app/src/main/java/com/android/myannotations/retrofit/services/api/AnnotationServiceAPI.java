@@ -1,29 +1,41 @@
 package com.android.myannotations.retrofit.services.api;
 
+import com.android.myannotations.retrofit.models.Annotation;
 import com.android.myannotations.retrofit.models.api.AnnotationResult;
 
-import java.util.List;
-
+import okhttp3.RequestBody;
 import retrofit2.Call;
-import retrofit2.Callback;
+import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 public interface AnnotationServiceAPI {
 
     @FormUrlEncoded
-    @POST("create_router.php")
-    Call<AnnotationResult> saveAnnotation(@Field("ride_id") int rideId,
-                                      @Field("driver_id") int driverId,
-                                      @Field("lat") double lat,
-                                      @Field("lng") double lng
-    );
+    @POST("annotation")
+    Call<AnnotationResult> saveAnnotation(@Field("titulo") String titulo,
+                                          @Field("message") String message);
+
+    @GET("annotation")
+    Call<AnnotationResult> getAnnotations();
 
     @GET("annotation/{id}")
-    Call<AnnotationResult> getAnnotations(@Path("id") int id);
+    Call<AnnotationResult> getAnnotation(@Path("id") int id);
+
+    @Headers({
+            "Content-Type: application/json",
+    })
+    @PUT("annotation/{id}")
+    Call<AnnotationResult> updateAnnotation(@Path("id") int id, @Body Annotation annotation);
+
+    @DELETE("annotation/{id}")
+    Call<AnnotationResult> deleteAnnotation(@Path("id") int id);
 
 }

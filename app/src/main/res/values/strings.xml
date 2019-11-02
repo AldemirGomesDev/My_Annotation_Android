@@ -5,5 +5,8 @@
     <string name="text_anotation">Anotações</string>
     <string name="text_endereco">Endereço</string>
     <string name="text_save">Salvar</string>
+    <string name="text_exit">Sair</string>
     <string name="text_my_anotation">Adicionar Anotações</string>
+    <string name="text_not_found">Nenhuma Anotação Encontrada</string>
+    <string name="text_not_found_service">Error na comunicação com o servidor!</string>
 </resources>

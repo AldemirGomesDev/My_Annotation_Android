@@ -1,5 +1,6 @@
 package com.android.myannotations.retrofit.controllers;
 
+import com.android.myannotations.retrofit.models.Annotation;
 import com.android.myannotations.retrofit.models.api.AnnotationResult;
 import com.android.myannotations.retrofit.services.AnnotationService;
 
@@ -12,11 +13,23 @@ public class AnnotationController {
         annotationService = AnnotationService.INSTANCE;
     }
 
-    public AnnotationResult saveAnnotation(int rideId, int driverId, double lat, double lng) throws IOException {
-        return annotationService.saveAnnotation(rideId, driverId, lat, lng);
+    public AnnotationResult saveAnnotation(String titulo, String message) throws IOException {
+        return annotationService.saveAnnotation(titulo, message);
     }
 
-    public AnnotationResult getAnnotations(int rideId) throws IOException {
-        return annotationService.getAnnotations(rideId);
+    public AnnotationResult getAnnotation(int rideId) throws IOException {
+        return annotationService.getAnnotation(rideId);
+    }
+
+    public AnnotationResult getAnnotations() throws IOException {
+        return annotationService.getAnnotations();
+    }
+
+    public AnnotationResult updateAnnotation(int id, Annotation annotation) throws IOException {
+        return annotationService.updateAnnotation(id, annotation);
+    }
+
+    public AnnotationResult deleteAnnotation(int id) throws IOException {
+        return annotationService.deleteAnnotation(id);
     }
 }

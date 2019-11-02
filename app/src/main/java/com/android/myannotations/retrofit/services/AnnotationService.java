@@ -3,6 +3,7 @@ package com.android.myannotations.retrofit.services;
 import android.util.Log;
 
 import com.android.myannotations.retrofit.environment.APIConnection;
+import com.android.myannotations.retrofit.models.Annotation;
 import com.android.myannotations.retrofit.models.api.AnnotationResult;
 import com.android.myannotations.retrofit.services.api.AnnotationServiceAPI;
 import com.google.gson.Gson;
@@ -24,14 +25,73 @@ public enum  AnnotationService {
         retrofit = APIConnection.INSTANCE.getRetrofit();
     }
 
-    public AnnotationResult saveAnnotation(int rideId, int driverId, double lat, double lng ) throws IOException {
+    public AnnotationResult saveAnnotation(String titulo, String message) throws IOException {
         AnnotationServiceAPI service = retrofit.create(AnnotationServiceAPI.class);
 
-        Call<AnnotationResult> call = service.saveAnnotation(rideId, driverId, lat, lng);
+        Call<AnnotationResult> call = service.saveAnnotation(titulo, message);
 
         AnnotationResult result = null;
-
         Response<AnnotationResult> response = call.execute();
+        result = response.body();
+        Log.w("RouterSaver", "setAnnotation: " + result.getMsg());
+
+        if (response.code() != 200) {
+            result = getResult(response);
+        }
+
+        return result;
+    }
+
+    public AnnotationResult getAnnotations() throws IOException {
+//         final AnnotationResult[] result = {null};
+        AnnotationServiceAPI service = retrofit.create(AnnotationServiceAPI.class);
+        Call<AnnotationResult> call = service.getAnnotations();
+
+        AnnotationResult result = null;
+        Response<AnnotationResult> response = call.clone().execute().isSuccessful() ? call.clone().execute() : null;
+        if (response != null){
+            result = response.body();
+            if (response.code() != 200) {
+                result = getResult(response);
+            }
+        }
+
+    return result;
+
+//        call.enqueue(new Callback<AnnotationResult>() {
+//            @Override
+//            public void onResponse(Call<AnnotationResult> call, Response<AnnotationResult> response) {
+//                if (response.isSuccessful()) {
+//                    // use response data and do some fancy stuff :)
+//                    result[0] = response.body();
+//                    Log.d("RouterSaver", "onResponse: isSuccessful " + result[0]);
+//
+//                } else {
+//                    Log.d("RouterSaver", "onResponse: " + response.toString());
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<AnnotationResult> call, Throwable t) {
+//                // there is more than just a failing request (like: no internet connection)
+//                Log.d("RouterSaver", "onFailure: " + t.getMessage());
+//
+//            }
+//        });
+//        Log.d("RouterSaver", "Return result[0] " + result[0]);
+//        return result[0];
+    }
+
+    public AnnotationResult getAnnotation(int id) throws IOException {
+        AnnotationServiceAPI service = retrofit.create(AnnotationServiceAPI.class);
+
+        Call<AnnotationResult> call = service.getAnnotation(id);
+
+
+        AnnotationResult result = null;
+        Response<AnnotationResult> response = call.clone().execute();
+
         result = response.body();
 
         if (response.code() != 200) {
@@ -41,30 +101,32 @@ public enum  AnnotationService {
         return result;
     }
 
-    public AnnotationResult getAnnotations(int id) throws IOException {
+    public AnnotationResult updateAnnotation(int id, Annotation annotation) throws IOException {
         AnnotationServiceAPI service = retrofit.create(AnnotationServiceAPI.class);
-
-        Call<AnnotationResult> call = service.getAnnotations(id);
-
-        call.enqueue(new Callback<AnnotationResult>() {
-            @Override
-            public void onResponse(Call<AnnotationResult> call, Response<AnnotationResult> response) {
-                Log.w("RouterSaver", "=========== onResponse ============: " + response.body().getAnnotation());
-
-            }
-
-            @Override
-            public void onFailure(Call<AnnotationResult> call, Throwable t) {
-                Log.w("RouterSaver", "Error ==>: " + t);
-            }
-        });
+        Call<AnnotationResult> call = service.updateAnnotation(id, annotation);
 
         AnnotationResult result = null;
-        Response<AnnotationResult> response = call.clone().execute();
+        Response<AnnotationResult> response = call.execute();
         Log.w("RouterSaver", "Call: " + response.body());
 
         result = response.body();
-        Log.w("RouterSaver", "getAnnotation: " + result.toString());
+
+        if (response.code() != 200) {
+            result = getResult(response);
+        }
+
+        return result;
+    }
+    public AnnotationResult deleteAnnotation(int id) throws IOException {
+        AnnotationServiceAPI service = retrofit.create(AnnotationServiceAPI.class);
+
+        Call<AnnotationResult> call = service.deleteAnnotation(id);
+
+        AnnotationResult result = null;
+        Response<AnnotationResult> response = call.execute();
+        Log.w("RouterSaver", "Call: " + response.body());
+
+        result = response.body();
 
         if (response.code() != 200) {
             result = getResult(response);

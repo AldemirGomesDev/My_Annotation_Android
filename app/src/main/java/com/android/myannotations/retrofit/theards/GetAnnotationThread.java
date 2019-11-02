@@ -1,41 +1,27 @@
 package com.android.myannotations.retrofit.theards;
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.android.myannotations.R;
 import com.android.myannotations.retrofit.controllers.AnnotationController;
 import com.android.myannotations.retrofit.models.api.AnnotationResult;
 
 import java.io.IOException;
 
-public class GetAnnotationsThread extends AsyncTask<Void, Void, AnnotationResult> {
+public class GetAnnotationThread extends AsyncTask<Void, Void, AnnotationResult> {
 
     private IThreadResult<AnnotationResult> iThreadResult;
-    private Activity activity;
-    private Dialog dialog;
+    private int id;
 
-    public GetAnnotationsThread(Activity activity) {
-        this.activity = activity;
-        this.dialog = new Dialog(activity, android.R.style.Theme_Translucent_NoTitleBar);
-        this.dialog.setContentView(R.layout.loading_custom);
-    }
-
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-        dialog.show();
+    public GetAnnotationThread(int id) {
+        this.id = id;
     }
 
     @Override
     protected AnnotationResult doInBackground(Void... voids) {
 
         try {
-            return new AnnotationController().getAnnotations();
+            return new AnnotationController().getAnnotation(id);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -44,8 +30,7 @@ public class GetAnnotationsThread extends AsyncTask<Void, Void, AnnotationResult
 
     @Override
     protected void onPostExecute(AnnotationResult routerResult) {
-        Log.d("RouterSaver", "onPostExecute " + routerResult);
-        dialog.dismiss();
+        Log.w("RouterSaver", "Busca de Annotation => " + routerResult);
         if (iThreadResult != null)
             iThreadResult.onResult(routerResult);
     }
