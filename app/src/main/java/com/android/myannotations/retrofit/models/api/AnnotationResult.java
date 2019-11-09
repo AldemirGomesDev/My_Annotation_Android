@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+//classe com o modelo de retorno da API
 public class AnnotationResult extends APIResult {
 
     @SerializedName("annotation")

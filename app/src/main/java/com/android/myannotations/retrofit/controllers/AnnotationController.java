@@ -6,6 +6,7 @@ import com.android.myannotations.retrofit.services.AnnotationService;
 
 import java.io.IOException;
 
+//classe Controller que é chamada pelo metodos das telas e chama os serviços específicos
 public class AnnotationController {
     private AnnotationService annotationService;
 

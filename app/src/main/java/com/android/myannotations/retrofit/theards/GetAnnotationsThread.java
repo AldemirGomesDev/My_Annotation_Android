@@ -2,15 +2,11 @@ package com.android.myannotations.retrofit.theards;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-
 import com.android.myannotations.R;
 import com.android.myannotations.retrofit.controllers.AnnotationController;
 import com.android.myannotations.retrofit.models.api.AnnotationResult;
-
 import java.io.IOException;
 
 public class GetAnnotationsThread extends AsyncTask<Void, Void, AnnotationResult> {

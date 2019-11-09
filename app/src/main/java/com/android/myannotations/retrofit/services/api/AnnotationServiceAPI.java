@@ -14,6 +14,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
+//interface com os endepoints "rotas" para consumir a API
 public interface AnnotationServiceAPI {
 
     @FormUrlEncoded

@@ -2,9 +2,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.android.myannotations.MainActivity">
+
     <item
-        android:id="@+id/action_new"
-        android:icon="@drawable/new_note"
+        android:id="@+id/action_refresh"
+        android:icon="@drawable/refresh_128"
         android:title="Novo"
         app:showAsAction="always" />
     <item

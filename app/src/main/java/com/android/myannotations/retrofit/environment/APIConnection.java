@@ -5,6 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public enum APIConnection {
 
+    //Enum que cria o retrofit para consumir a API
     INSTANCE;
 
     private final Retrofit retrofit;
