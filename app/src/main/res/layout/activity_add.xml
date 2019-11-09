@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddActivity"
+    tools:context=".activitys.AddActivity"
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
@@ -34,86 +34,98 @@
     </android.support.design.widget.AppBarLayout>
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        tools:ignore="MissingConstraints">
+        android:layout_marginTop="70dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/text_my_anotation"
-                android:layout_marginBottom="16dp"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:layout_gravity="center"
-                android:visibility="gone"/>
-            <EditText
-                android:hint="@string/text_titulo"
-                android:background="@drawable/edit_text_bord"
-                android:id="@+id/edtTitulo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            tools:ignore="MissingConstraints">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_my_anotation"
+                    android:layout_marginBottom="16dp"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:visibility="gone"/>
+                <EditText
+                    android:hint="@string/text_titulo"
+                    android:background="@drawable/edit_text_bord"
+                    android:id="@+id/edtTitulo"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"/>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/edtMessage"
-                android:background="@drawable/edit_text_bord"
-                android:inputType="textMultiLine"
-                android:hint="@string/text_anotation"
                 android:layout_marginBottom="8dp"
-                android:lines="8"
-                android:minLines="6"
-                android:gravity="top|left"
-                android:maxLines="10"
-                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/edtMessage"
+                    android:background="@drawable/edit_text_bord"
+                    android:inputType="textMultiLine"
+                    android:hint="@string/text_anotation"
+                    android:layout_marginBottom="8dp"
+                    android:lines="8"
+                    android:minLines="6"
+                    android:gravity="top|left"
+                    android:maxLines="10"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:scrollbars="vertical"
+                    android:scrollHorizontally="false"/>
+
+                <TextView
+                    android:id="@+id/tvDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="20/10/2019"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llSalvar"
                 android:layout_width="match_parent"
-                android:scrollbars="vertical"
-                android:scrollHorizontally="false"/>
+                android:layout_height="50dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/btn_gradient"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:focusable="true">
 
-            <TextView
-                android:id="@+id/tvDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="20/10/2019"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_save"
+                    android:textColor="@color/colorWhite"
+                    android:textStyle="bold"
+                    android:textSize="20sp" />
+            </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/llSalvar"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/btn_gradient"
-            android:clickable="true"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:focusable="true">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/text_save"
-                android:textColor="@color/colorWhite"
-                android:textStyle="bold"
-                android:textSize="20sp" />
-        </LinearLayout>
-
+    </ScrollView>
     </LinearLayout>
-
-</LinearLayout>
+</FrameLayout>

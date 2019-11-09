@@ -1,6 +1,6 @@
 package com.android.myannotations.retrofit.models.api;
 
-import com.android.myannotations.retrofit.models.Annotation;
+import com.android.myannotations.models.Annotation;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;

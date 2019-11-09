@@ -1,4 +1,4 @@
-package com.android.myannotations;
+package com.android.myannotations.activitys;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -11,11 +11,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 
+import com.android.myannotations.R;
 import com.android.myannotations.retrofit.controllers.AnnotationController;
 import com.android.myannotations.retrofit.models.api.AnnotationResult;
 import com.android.myannotations.retrofit.theards.IThreadResult;

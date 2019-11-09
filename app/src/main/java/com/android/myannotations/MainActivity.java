@@ -1,41 +1,30 @@
 package com.android.myannotations;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AbsListView;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.android.myannotations.activitys.AddActivity;
 import com.android.myannotations.adapter.AnnotationAdapter;
-import com.android.myannotations.retrofit.controllers.AnnotationController;
-import com.android.myannotations.retrofit.models.Annotation;
+import com.android.myannotations.models.Annotation;
 import com.android.myannotations.retrofit.models.api.AnnotationResult;
-import com.android.myannotations.retrofit.theards.GetAnnotationThread;
 import com.android.myannotations.retrofit.theards.GetAnnotationsThread;
 import com.android.myannotations.retrofit.theards.IThreadResult;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,17 +71,20 @@ public class MainActivity extends AppCompatActivity {
             mRecyclerView.setLayoutManager(layoutManager);
             mAdapter = new AnnotationAdapter(list, this);
             mRecyclerView.setAdapter(mAdapter);
-            mRecyclerView.addItemDecoration(
-                    new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-
+            final int[] visibleItemCount = new int[1];
+            final int[] totalVisible = new int[1];
+            final int[] pastVisibleItems = new int[1];
+//            mRecyclerView.addItemDecoration(
+//                    new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
             mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
                 @Override
                 public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                     super.onScrollStateChanged(recyclerView, newState);
                     if (newState == AbsListView.OnScrollListener.SCROLL_STATE_FLING) {
-                        if(!loading){
+                        if (!loading) {
                             getAnnotation(context);
                             loading = true;
+
                         }
                     }
                 }
@@ -101,15 +93,45 @@ public class MainActivity extends AppCompatActivity {
                 public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                     super.onScrolled(recyclerView, dx, dy);
                     if (dy > 0) {
+                        //loading = true;
+                    } else {
+                        //loading = false;
+                    }
+
+
+                    if (dy > 0) //check for scroll down
+                    {
+                        visibleItemCount[0] = layoutManager.getChildCount();
+                        int totalItemCount = layoutManager.getItemCount();
+                        pastVisibleItems[0] = layoutManager.findFirstVisibleItemPosition();
+                        totalVisible[0] = visibleItemCount[0] + pastVisibleItems[0];
+                        Log.w(TAG, "setupRecycler: 1 => " + totalVisible[0] );
+
+                        if (totalVisible[0] >= totalItemCount) {
+                            Log.w(TAG, "onScrolled: " + visibleItemCount[0] + " - " + totalItemCount + " - " + pastVisibleItems[0]);
+                            loading = false;
+//                                if (mAdapter.countOfShowing < mAdapter.allChallenges.size()) {
+//                                    Log.e("...", "Last Item Wow !");
+//                                    mAdapter.increaseCountOfShowing();
+//                                    mAdapter.notifyDataSetChanged();
+//                                }
+                            //loading = true;
+                            //Do pagination.. i.e. fetch new data
+
+                        }
+                    } else {
                         loading = true;
-                        Log.w(TAG, "onScrolled: " + dy);
-                    }else {
-                        loading = false;
                     }
                 }
             });
+            int visibleItemCounts = layoutManager.getChildCount();
+            int pastVisibleItemss = layoutManager.findFirstVisibleItemPosition();
+            int totalItemCounts = visibleItemCounts + pastVisibleItemss;
 
-        }catch (Exception e){
+            Log.w(TAG, "SoothScrollToPosition: " + totalItemCounts );
+            mRecyclerView.smoothScrollToPosition(totalItemCounts);
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -123,8 +145,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(data != null){
-            if(requestCode == 1 && resultCode == RESULT_OK) {
+        if (data != null) {
+            if (requestCode == 1 && resultCode == RESULT_OK) {
 
             }
         }
@@ -138,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-        if(id == R.id.action_new){
+        if (id == R.id.action_new) {
             Intent intent = new Intent(MainActivity.this, AddActivity.class);
             intent.putExtra("MESSAGE", "Olá sou uma informação passada de outra activity");
             startActivityForResult(intent, 1);
@@ -147,23 +169,23 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void getAnnotation(Activity context){
-        Log.e(TAG, "getAnnotation: " );
+    public void getAnnotation(Activity context) {
+        Log.e(TAG, "getAnnotation: ");
         GetAnnotationsThread getRoutersThread = new GetAnnotationsThread(context);
         getRoutersThread.setOnResult(new IThreadResult<AnnotationResult>() {
             @Override
             public void onResult(AnnotationResult routerResult) {
                 loading = false;
-                if(routerResult != null ){
+                if (routerResult != null) {
                     list = routerResult.getAnnotations();
-                    if(list.size() > 0){
+                    if (list.size() > 0) {
                         no_results_found_layout.setVisibility(View.GONE);
                         setupRecycler();
-                    }else{
+                    } else {
                         tv_not_result_found.setText(R.string.text_not_found);
                         no_results_found_layout.setVisibility(View.VISIBLE);
                     }
-                }else{
+                } else {
                     tv_not_result_found.setText(R.string.text_not_found_service);
                     no_results_found_layout.setVisibility(View.VISIBLE);
                 }
@@ -185,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
         getAnnotation(context);
     }
 
-    private void loading(){
+    private void loading() {
 
     }
 

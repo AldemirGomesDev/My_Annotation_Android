@@ -3,7 +3,7 @@ package com.android.myannotations.retrofit.services;
 import android.util.Log;
 
 import com.android.myannotations.retrofit.environment.APIConnection;
-import com.android.myannotations.retrofit.models.Annotation;
+import com.android.myannotations.models.Annotation;
 import com.android.myannotations.retrofit.models.api.AnnotationResult;
 import com.android.myannotations.retrofit.services.api.AnnotationServiceAPI;
 import com.google.gson.Gson;
@@ -12,7 +12,6 @@ import com.google.gson.TypeAdapter;
 import java.io.IOException;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 

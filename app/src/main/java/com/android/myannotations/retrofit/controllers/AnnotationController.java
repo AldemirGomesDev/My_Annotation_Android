@@ -1,6 +1,6 @@
 package com.android.myannotations.retrofit.controllers;
 
-import com.android.myannotations.retrofit.models.Annotation;
+import com.android.myannotations.models.Annotation;
 import com.android.myannotations.retrofit.models.api.AnnotationResult;
 import com.android.myannotations.retrofit.services.AnnotationService;
 

@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.android.myannotations.MainActivity;
 import com.android.myannotations.R;
 import com.android.myannotations.retrofit.controllers.AnnotationController;
-import com.android.myannotations.retrofit.models.Annotation;
+import com.android.myannotations.models.Annotation;
 import com.android.myannotations.retrofit.models.api.AnnotationResult;
 import com.android.myannotations.retrofit.theards.IThreadResult;
 
