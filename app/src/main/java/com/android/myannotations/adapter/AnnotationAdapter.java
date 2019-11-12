@@ -144,11 +144,13 @@ public class AnnotationAdapter extends RecyclerView.Adapter<AnnotationAdapter.Vi
         @Override
         protected void onPostExecute(AnnotationResult routerResult) {
             dialog.dismiss();
-            if (iThreadResult != null)
+            if (routerResult != null) {
                 iThreadResult.onResult(routerResult);
-            annotations = routerResult.getAnnotations();
-            customToast("Atualizado com sucesso! ");
-
+                annotations = routerResult.getAnnotations();
+                customToast("Atualizado com sucesso! ", R.drawable.ok_96);
+            } else {
+                customToast("Erro na comunicação com o servidor!", R.drawable.ic_alert);
+            }
         }
 
         private void setOnResult(IThreadResult<AnnotationResult> iThreadResult) {
@@ -188,9 +190,11 @@ public class AnnotationAdapter extends RecyclerView.Adapter<AnnotationAdapter.Vi
         protected void onPostExecute(AnnotationResult routerResult) {
             //finaliza o loading
             dialog.dismiss();
-            if (iThreadResult != null) {
+            if (routerResult != null) {
                 iThreadResult.onResult(routerResult);
-                customToast("Excluido com sucesso! ");
+                customToast("Excluido com sucesso! ", R.drawable.ok_96);
+            } else {
+                customToast("Erro na comunicação com o servidor!", R.drawable.ic_alert);
             }
 
         }
@@ -275,9 +279,9 @@ public class AnnotationAdapter extends RecyclerView.Adapter<AnnotationAdapter.Vi
         dialog.show();
     }
     //metodo para criar e exibir Toast Customizado
-    private void customToast(String message) {
+    private void customToast(String message , int imageView) {
         ImageView image = (ImageView) layoutToast.findViewById(R.id.image);
-        image.setImageResource(R.drawable.ok_96);
+        image.setImageResource(imageView);
         TextView text = (TextView) layoutToast.findViewById(R.id.text);
         text.setText(message);
 

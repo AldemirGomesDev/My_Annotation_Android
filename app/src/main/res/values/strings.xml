@@ -8,7 +8,7 @@
     <string name="text_exit">Sair</string>
     <string name="text_my_anotation">Adicionar Anotações</string>
     <string name="text_not_found">Nenhuma Anotação Encontrada</string>
-    <string name="text_not_found_service">Error na comunicação com o servidor!</string>
+    <string name="text_not_found_service">Erro na comunicação com o servidor!</string>
     <string name="atualizar">Atualizar</string>
     <string name="cancelar">Cancelar</string>
     <string name="carregando">Carregando...</string>

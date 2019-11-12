@@ -164,12 +164,15 @@ public class AddActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(AnnotationResult routerResult) {
             dialog.dismiss();
-            //Retorno da API, se for diferente de null retorna para quem chamou
-            if (iThreadResult != null)
+                //Retorno da API, se for diferente de null retorna para quem chamou
+            if (routerResult != null) {
                 iThreadResult.onResult(routerResult);
-            edtTitulo.setText("");
-            edtMessage.setText("");
-            finish();
+                edtTitulo.setText("");
+                edtMessage.setText("");
+                finish();
+            }else {
+                customToast("Erro na comunicação com o servidor!");
+            }
         }
 
         private void setOnResult(IThreadResult<AnnotationResult> iThreadResult) {
