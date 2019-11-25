@@ -1,8 +1,11 @@
 package com.android.myannotations;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.net.ConnectivityManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,6 +20,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AbsListView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -32,7 +36,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "RouterSaver";
+    private static final String TAG = "testeunitatio";
     private RecyclerView mRecyclerView;
     private List<Annotation> list = new ArrayList<>();
     private Activity context;
@@ -47,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
+
+        Log.w(TAG, "isConnection => " + isOnline());
 
         setSupportActionBar(toolbar);
         context = this;
@@ -72,6 +78,13 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+    //testar conexao
+    public boolean isOnline() {
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return manager.getActiveNetworkInfo() != null &&
+                manager.getActiveNetworkInfo().isConnectedOrConnecting();
     }
     //adicionar o recyclerView
     private void setupRecycler() {

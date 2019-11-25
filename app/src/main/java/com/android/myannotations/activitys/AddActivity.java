@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -79,9 +80,9 @@ public class AddActivity extends AppCompatActivity {
     private void setAnnotation(){
         String titulo = edtTitulo.getText().toString();
         String message = edtMessage.getText().toString();
-        if (titulo.equals("")){
+        if (fieldIsEmpty(titulo)){
             customToast("O título é obrigatório!");
-        }else if (message.equals("")){
+        }else if (fieldIsEmpty(message)){
             customToast("A mensagem é obrigatória!");
         }else {
             //chamando a classe AsyncTasck para fazer a comunicação com a API
@@ -97,6 +98,15 @@ public class AddActivity extends AppCompatActivity {
             setAnnotationThread.execute();
         }
 
+    }
+    //metodo para verificar campo vazio
+    public boolean fieldIsEmpty(String text) {
+        boolean isEmpty = false;
+
+        if(text.equals("")) {
+            isEmpty = true;
+        }
+        return isEmpty;
     }
     //botão para voltar para tela anterior
     @Override
@@ -191,5 +201,9 @@ public class AddActivity extends AppCompatActivity {
         toast.setDuration(Toast.LENGTH_LONG);
         toast.setView(layoutToast);
         toast.show();
+    }
+
+    public LinearLayout getAddButton() {
+        return llSalvar;
     }
 }

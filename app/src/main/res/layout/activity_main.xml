@@ -42,4 +42,5 @@
         app:srcCompat="@drawable/icon_add"
         tools:ignore="VectorDrawableCompat" />
 
+
 </android.support.design.widget.CoordinatorLayout>
