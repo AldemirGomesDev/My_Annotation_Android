@@ -63,7 +63,7 @@ public class MainActivityTest {
     public void testLayout() throws Exception {
         Activity activity = Robolectric.setupActivity(MainActivity.class);
 
-        Button button = (Button) activity.findViewById(R.id.buttom);
+        Button button = (Button) activity.findViewById(R.id.fab);
 
         ViewGroup.LayoutParams layoutParams = button.getLayoutParams();
         assertNotNull(layoutParams);
